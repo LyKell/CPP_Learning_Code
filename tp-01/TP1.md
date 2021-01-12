@@ -4,7 +4,14 @@
 ## Exercice 1 - Compilation et exécution
 
 1. Quels sont les avantages et désavantages d'un langage dit "compilé" (C, C++, Pascal) ou "semi-compilé" (Java) comparé à un langage dit "interpreté" (Python, PHP, Javascript, etc) ?
+  
+Le programme est plus rapide et directement exécutable par le système d'exploitation. Par contre, l'exécutable n'est pas portable, et il faut recompiler les sources à chaque fois que l'on change de système.
+  
 2. Quelle est la différence entre une erreur de compilation et une erreur d'exécution ? (à quel moment se produisent-elles, dans quelles circonstances, comment les identifier, comment les corriger, ...)
+  
+Les erreurs de compilation sont générées pendant la compilation. Elles empêchent le compilateur de créer l'exécutable. Ce sont dont des erreurs qui nous empêchent d'exécuter le programme. Elles sont indiquées par le compilateur.
+Les erreurs d'exécution sont celles générées par l'utilisateur ou par un mauvais comportement du programme lors de l'exécution (L'utilisateur qui fait 5 + "bonjour" ou quand on a oublié de gérer un pointeur null dans le code)
+  
 3. Que signifie en pratique l'expression "undefined behavior" (UB) ? Peut-on compiler un programme contenant du code classifié UB par le standard ? Si oui, que peut-il se produire au moment de son exécution ?
 
 
@@ -27,28 +34,31 @@ Vous pouvez utiliser [CompilerExplorer](https://www.godbolt.org/z/rPPoro) pour t
 short s0;
 int   i1 = 2;
 bool  b2{false};
-bool  b3{i1};
+bool  b3{i1}; // On ne peut pas initialiser un booléen avec 2
 bool* b4;
 unsigned       u5{0x10};
 unsigned short us6 = -10;
 unsigned long  ul7{b3 + u5 + us6};
-char c8{"a"};
+char c8{"a"}; // "a" est un char*, pas un char
 char c9 = -10;
-double  d10{i1};
-double* d11{d10};
-double& d12;
+double  d10{i1};  // ??
+double* d11{d10}; // d10 n'est pas un double*
+double& d12;  // ??
 const double d13{.0f};
 const int    i14 = i1;
 int* i15 = &i1;
-int* i16 = &b2;
+int* i16 = &b2; // On essaye de metre un bool* dans un int*
 int  i17 = *i15;
-int& i18{i14};
+int& i18{i14};  // ??
 const int* i19{nullptr};
-const bool b20;
+const bool b20; // On n'a pas initialisé b20
 ```
 
 2. Pouvez-vous donner la valeur de `s0` ? De `*i15` ? De `ul7` ?
-
+  
+s0 : Valeur aléatoire
+*i15 : 2
+ul7 : Le code ne compile pas
 
 ## Exercice 3 - Les fonctions et leurs paramètres
 
@@ -57,15 +67,15 @@ const bool b20;
 ```cpp
 #include <iostream>
 
-XX add(XX a, XX b) {
+int add(const int a, const int b) {
   return a + b;
 }
 
-XX add_to(XX a, XX b) {
+void add_to(int& a, const int b) {
   a += b;
 }
 
-XX another_add_to(XX a, XX b) {
+void another_add_to(int* a, const int b) {
   *a += b;
 }
 
@@ -83,13 +93,17 @@ int main() {
 2. En C++, vous pouvez passer vos paramètres par valeur, par référence et par référence constante.
 Quelles sont les différences entre ces différentes méthodes de passage ?
 Dans quels contextes est-il préférable de passer par valeur ? Par référence ? Et par référence constante ?
-
+  
+Par valeur : C'est une copie de la valeur qui est passée. Généralement, on l'utilise pour les types primitifs.
+Par référence : C'est un pointeur sur l'adresse du paramètre. On peut donc le modifier. Pour les objet, c'est plus léger de les passer par référence que par valeur. On l'utilise quand on souhaite modifier la valeur du paramètre.
+Par référence constante : Comme par référence, sauf qu'on peut pas modifier la valeur. On l'utilise quand on veut passer un objet en paramètre mais sans vouloir le modifier.
+  
 3. Modifiez les signatures des fonctions suivantes de manière à ce que le passage de paramètres soit le plus efficace et sécurisé possible.
 ```cpp
-int         count_a_occurences(std::string s);
-void        update_loop(const float& dt, std::string* errors_out);
-bool        are_all_positives(std::vector<int> values, int* negative_indices_out, size_t* negative_count_out);
-std::string concatenate(char* str1, char* str2);
+int         count_a_occurences(const std::string& s);
+void        update_loop(const float& dt, std::string& errors_out);
+bool        are_all_positives(const std::vector<int>& values, int& negative_indices_out, size_t& negative_count_out);
+std::string concatenate(const char& str1, const char& str2);
 ```
 
 
