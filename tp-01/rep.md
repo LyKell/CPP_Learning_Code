@@ -5,9 +5,9 @@
 1. Le programme est plus rapide et directement exécutable par le système d'exploitation. Par contre, l'exécutable n'est pas portable, et il faut recompiler les sources à chaque fois que l'on change de système.
 
 2. Les erreurs de compilation sont générées pendant la compilation. Elles empêchent le compilateur de créer l'exécutable. Ce sont dont des erreurs qui nous empêchent d'exécuter le programme. Elles sont indiquées par le compilateur.
-Les erreurs d'exécution sont celles générées par l'utilisateur ou par un mauvais comportement du programme lors de l'exécution (L'utilisateur qui fait 5 + "bonjour" ou quand on a oublié de gérer un pointeur null dans le code)
+Les erreurs d'exécution sont celles générées par l'utilisateur ou par un mauvais comportement du programme lors de l'exécution (L'utilisateur qui fait 5 + "bonjour" ou quand on a oublié de gérer un pointeur null dans le code). Ce sont des bugs. On utilise un debugger pour détecter où sont les erreurs.
 
-3. 
+3. C'est un comportement non-défini par le standard. Le code compile, mais le résultat n'est pas garanti lors de l'exécution.
 
 
 ## Exercice 2 -- Primitives et initialisation

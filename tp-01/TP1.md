@@ -17,7 +17,8 @@ Les erreurs d'exécution sont celles générées par l'utilisateur ou par un mau
 
 ## Exercice 2 - Primitives et initialisation
 
-En C++, il existe plein de syntaxes différentes pour initialiser une variable de type primitif (int, char, bool, etc) :
+En C++, il existe plein de syntaxes différentes pour initialiser une variable de type primitif (int, char, bool, ...) :
+
 ```cpp
 int v;       // pas d'initialisation            -> valeur indéfinie
 int v = 2;   // initialisation avec '= value'   -> value
@@ -27,7 +28,7 @@ int v(2);    // initialisation avec '(value)'   -> value
 ```
 
 1. Parmi les lignes suivantes, lesquelles déclenchent des erreurs de compilation ? Quelles sont ces erreurs et comment les corriger ?\
-Mêmes questions en ajoutant l'option -Werror à la compilation.\
+Mêmes questions en ajoutant l'option `-Werror` à la compilation.\
 Vous pouvez utiliser [CompilerExplorer](https://www.godbolt.org/z/rPPoro) pour tester la compilation de petits snippets de code.
 
 ```cpp
@@ -85,7 +86,7 @@ int main() {
   another_add_to(&y, y);
   add_to(y, 2);
   std::cout << y << std::endl;
-  
+
   return 0;
 }
 ```
@@ -99,23 +100,40 @@ Par référence : C'est un pointeur sur l'adresse du paramètre. On peut donc le
 Par référence constante : Comme par référence, sauf qu'on peut pas modifier la valeur. On l'utilise quand on veut passer un objet en paramètre mais sans vouloir le modifier.
   
 3. Modifiez les signatures des fonctions suivantes de manière à ce que le passage de paramètres soit le plus efficace et sécurisé possible.
+Vous pouvez vous aidez des commentaires pour comprendre comment les fonctions utilisent leurs paramètres.
 ```cpp
-int         count_a_occurences(const std::string& s);
-void        update_loop(const float& dt, std::string& errors_out);
-bool        are_all_positives(const std::vector<int>& values, int& negative_indices_out, size_t& negative_count_out);
-std::string concatenate(const char& str1, const char& str2);
+// Return the number of occurrences of 'a' found in string 's'.
+int count_a_occurrences(std::string s);
+
+// Update function of a rendering program.
+// - dt (delta time) is read by the function to know the time elapsed since the last frame.
+// - errors is a string filled by the function to indicate what errors have occured.
+void update_loop(const float& dt, std::string* errors_out);
+
+// Return whether all numbers in 'values' are positive.
+// If there are negative values in it, fill the array 'negative_indices_out' with the indices
+// of these values and set its size in 'negative_count_out'.
+// ex: auto res = are_all_positive({ 1, -2, 3, -4 }, negative_indices, &negative_count);
+//    -> res is false, since not all values are positive
+//    -> negative_indices contains { 1, 3 } because values[1] = -2 and values[3] = -4
+//    -> negative_count is 2
+bool are_all_positives(std::vector<int> values, int* negative_indices_out, size_t* negative_count_out);
+
+// Concatenate 'str1' and 'str2' and return the result.
+// The input parameters are not modified by the function.
+std::string concatenate(char* str1, char* str2);
 ```
 
 
 ## Exercice 4 - `std::string` et `std::vector`
 
-1. Ecrivez un programme qui utilise `std::cin` pour lire une variable de type `std::string`, puis calcule et affiche pour chaque lettre miniscule ('a', 'b', ..., 'z') le nombre des fois où elle apparait.\
-Le comptage des lettres se fera dans une fonction `count_lower` prenant une chaîne de caractère en paramètre et renvoyant un `std::vector<unsigned int>`. La première case du tableau contiendra le nombre d'occurences de 'a', la seconde de 'b', etc.\
+1. Ecrivez un programme qui utilise `std::cin` pour lire une variable de type `std::string`, puis calcule et affiche pour chaque lettre miniscule ('a', 'b', ..., 'z') le nombre des fois où elle apparaît.\
+Le comptage des lettres se fera dans une fonction `count_lower` prenant une chaîne de caractères en paramètre et renvoyant un `std::vector<unsigned int>`. La première case du tableau contiendra le nombre d'occurences de 'a', la seconde de 'b', etc.\
 Vous afficherez ce tableau dans une seconde fonction `display_lower_occ`.\
 Essayez d'utiliser les signatures qui rendront votre programme le plus efficace possible.
 
 2. Modifiez le programme pour que l'utilisateur puisse entrer plusieurs chaînes de caractères, jusqu'à ce qu'il entre la chaîne vide.\
-Vous afficherez en plus des occurences la concaténation de toutes les chaînes de charactères renseignées par l'utilisateur.
+Vous afficherez en plus des occurrences la concaténation de toutes les chaînes de caractères renseignées par l'utilisateur.
 
 
 ## Exercice 5 - Traducteur malade
