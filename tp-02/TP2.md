@@ -4,6 +4,9 @@
 ## Exercice 1 - Classes et instances
 
 1. Le code suivant permet de calculer une somme d'entiers de manière un peu originale. Quelles sont les deux valeurs affichées à la fin ?
+
+Les deux valeurs sont 17 et 17.
+
 ```cpp
 #include <iostream>
 
@@ -35,6 +38,8 @@ int main() {
 
 2. Que se passe si on enlève la ligne marquée "initialisation" ?
 
+Le code ne compile plus parce que ` global_sum` est non défini.
+
 ## Exercice 2 - Construction et destruction
 
 1. Dans l'exercice 4 du TP1, on vous avait demandé de programmer une fonction qui comptait le nombre d'occurrences de chaque lettre dans une string. Vous allez maintenant réimplémenter ce programme, mais au moyen de la classe `Histogram` ci-dessous :
@@ -63,8 +68,13 @@ Exécutez le code suivant. Dans quel ordre sont évalués les appels de chaque c
 Histogram h1,h2;
 Histogram h3{Histogram{h1}};
 ```
+  
+Les deux constructeurs par défaut de `h1` et `h2` sont appelés en premier. Le constructeur de copie de `h3` est ensuite appelé.\
+Les destructeurs de `h3`, `h2` et `h1` sont ensuite appelés dans cet ordre.
 
 3. Si on enlève la définition du constructeur de copie, est-ce que le code ci-dessus compile toujours ? Si oui, que va-t-il se passer au moment de l'exécution ?
+  
+Le code compile mais ne link plus.
 
 [//]: # (## Exercise 3 - Construction et Affectation)
 [//]: # (1. Informez-vous et expliquez les trois concepts "Rule of Zero/Three/Five"!)

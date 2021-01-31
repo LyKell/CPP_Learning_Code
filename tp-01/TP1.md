@@ -57,9 +57,9 @@ const bool b20; // On n'a pas initialisé b20
 
 2. Pouvez-vous donner la valeur de `s0` ? De `*i15` ? De `ul7` ?
   
-s0 : Valeur aléatoire
-*i15 : 2
-ul7 : Le code ne compile pas
+s0 : Valeur aléatoire\
+*i15 : 2\
+ul7 : Le code ne compile pas\
 
 ## Exercice 3 - Les fonctions et leurs paramètres
 
