@@ -4,21 +4,24 @@
 
 1. Indiquez dans le tableau suivant les complexités en temps de chaque opération :
 
-| conteneur    | insertion (en tête / en fin) | suppression (en tête / en fin) | accès |
-|--------------|-----------|----------|-----------|
-| array        |   ---     |   ---    |    ---    |
-| vector       |           |          |           |
-| deque        |           |          |           |
-| forward_list |           |          |           |
-| list         |           |          |           |
-| set          |           |          |           |
-| unordered_set|           |          |           |
+|   Conteneur   |     Insertion (en tête / en fin)    |    Suppression (en tête / en fin)   |                Accès                |
+|:-------------:|:-----------------------------------:|:-----------------------------------:|:-----------------------------------:|
+|     array     |              Impossible             |              Impossible             |           $\mathcal{O}(1)$          |
+|     vector    | $\mathcal{O}(n)$ / $\mathcal{O}(1)$ | $\mathcal{O}(n)$ / $\mathcal{O}(1)$ |           $\mathcal{O}(1)$          |
+|     deque     | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ |           $\mathcal{O}(1)$          |
+|  forward_list |           $\mathcal{O}(1)$          |           $\mathcal{O}(1)$          |                                     |
+|      list     | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ |                                     |
+|      set      |        $\mathcal{O}(\log(n))$       |        $\mathcal{O}(\log(n))$       |        $\mathcal{O}(\log(n))$       |
+| unordered_set | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ | $\mathcal{O}(1)$ / $\mathcal{O}(1)$ |
 
 2. Supposons que vous avez récupéré un itérateur sur un élément d'un conteneur avec : `auto it = std::find(c.begin(), c.end(), element_to_find)`.
 En fonction du type de conteneur, quelles sont les opérations succeptibles d'invalider cet itérateur ? Essayez d'être précis dans vos réponses.\
 Exemple : Si `c` est un `std::vector`, alors `it` peut être invalidé en cas de suppression d'un élément précédant `it` dans le conteneur.
 
 3. Quelle est la différence entre les fonctions `push_back` et `emplace_back` de la classe `std::vector<std::string>` ?
+  
+`push_back` : Ajoute l'élément à la fin.
+`emplace_back` : Ajoute l'élément à la fin en le construisant. On peut lui passer les paramètres de l'objet à insérer.
 
 4. Dans le code suivant, la classe `RelativePoint` modélise un point en 2D, dont la position est relative à celle d'un point d'origine.
 Pourquoi est-ce que l'expression `std::vector<RelativePoint>(3)` ne compile pas, alors que `std::vector<AbsolutePoint>(3)` compile ?\
@@ -36,6 +39,9 @@ class RelativePoint {
   AbsolutePoint        _shift;
   
 public:
+  RelativePoint()
+  {}
+  
   RelativePoint(const AbsolutePoint shift, const AbsolutePoint& origin = default_origin) :
     _origin { origin },
     _shift { shift }
