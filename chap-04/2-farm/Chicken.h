@@ -2,8 +2,12 @@
 
 #include <iostream>
 
-class Chicken
+class Chicken : public Animal
 {
 public:
-    void sing() const { std::cout << "Cotcotcotcodet" << std::endl; }
+    ~Chicken() override {
+        std::cout << "I'm died" << std::endl;
+    }
+
+    void sing(char end) const override { std::cout << "Cotcotcotcodet" << end; }
 };

@@ -5,5 +5,6 @@
 class Animal
 {
 public:
-    void sing() const { std::cout << "..." << std::endl; }
+    virtual ~Animal() {}
+    virtual void sing(char end) const { std::cout << "..." << end; }
 };
