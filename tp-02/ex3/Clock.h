@@ -9,6 +9,6 @@ class Clock {
         void tick();
 
     private:
-        SecondHand& _seconds;
-        MinuteHand& _minutes;
+        MinuteHand _minutes;
+        SecondHand _seconds;
 };

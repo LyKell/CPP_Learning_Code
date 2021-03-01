@@ -9,5 +9,11 @@ void PhoneBook::insert(const Person& person) {
 }
 
 const Person& PhoneBook::operator[](int pos) const {
-    return _book.
+    std::set<Person>::iterator it = _book.begin();
+    std::advance(it, pos);
+    return *it;
+}
+
+const Person* PhoneBook::first_of_family(std::string_view name) {
+    
 }
